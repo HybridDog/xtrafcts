@@ -22,27 +22,6 @@ end
 WATER = {"default:water_source", "default:water_flowing"}
 LAVA = {"default:lava_flowing","default:lava_source"}
 
-function lavacooling_abm(input, coolingnodes, output)
-minetest.register_abm ({
-	nodenames = {input},
-	interval = 0,
-	chance = 1,
-	action = function (pos)
-		for _, water in ipairs(coolingnodes) do
-			for i=-1,1 do
-				if minetest.env: get_node({x=pos.x+i, y=pos.y, z=pos.z}).name == water
-				or minetest.env: get_node({x=pos.x, y=pos.y+i, z=pos.z}).name == water
-				or minetest.env: get_node({x=pos.x, y=pos.y, z=pos.z+i}).name == water
-				then
-				minetest.env: add_node (pos, {name = output})
-				minetest.sound_play("lavacooling", {pos = pos,	gain = 1.0,	max_hear_distance = 5})
-				end
-			end
-		end
-	end,
-})
-end
-
 function tooldef(modname, name, desc, strenght, pih, shh, axh, swh)
 local xnode = modname..":"..name
 local stick = 'default:stick'
